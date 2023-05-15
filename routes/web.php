@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +17,18 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/clear', function() {
+    $exitCode = Artisan::call('route:cache');
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('view:clear');
+    return 'View cache cleared';
+});
+ 
+Route::get('/login2', [LoginController::class, 'index'])->name('index.login');
+Route::get('/login/github', [LoginController::class, 'redirectToProvider'])->name('github.login');
+ 
+Route::get('/login/github/callback-url', [LoginController::class, 'handleProviderCallback']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
