@@ -25,10 +25,32 @@ Route::get('/clear', function() {
     return 'View cache cleared';
 });
  
-Route::get('/login2', [LoginController::class, 'index'])->name('index.login');
+Route::get('login3', [LoginController::class, 'index'])->name('index.login');
 Route::get('/login/github', [LoginController::class, 'redirectToProvider'])->name('github.login');
  
 Route::get('/login/github/callback-url', [LoginController::class, 'handleProviderCallback']);
+
+Route::get('/login/google', [LoginController::class, 'redirectToProviderGoogle'])->name('google.login');
+ 
+Route::get('/login/google/callback', [LoginController::class, 'handleProviderCallbackGoogle']);
+
+Route::get('/login/facebook', [LoginController::class, 'redirectToProviderFacebook'])->name('facebook.login');
+ 
+Route::get('/login/facebook/callback', [LoginController::class, 'handleProviderCallbackFacebook']);
+
+
+Route::get('/login/linkedin', [LoginController::class, 'redirectToProviderLinkedin'])->name('linkedin.login');
+ 
+Route::get('/login/linkedin/callback', [LoginController::class, 'handleProviderCallbackLinkedin']);
+
+
+Route::get('/login/instagram', [LoginController::class, 'redirectToInstagramProvider'])->name('instagram.login');
+ 
+Route::get('/login/instagram/callback', [LoginController::class, 'instagramProviderCallback']);
+
+Route::get('/login/twitter', [LoginController::class, 'redirectToTwitterProvider'])->name('twitter.login');
+ 
+Route::get('/login/twitter/callback', [LoginController::class, 'twitterProviderCallback']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
